@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# Index Data (FAISS)
+index/
+*.faiss
+*.index
+*.pkl
+
+# Results (結果を含める場合はコメントアウト)
+# results/*.json
+# results/*.csv
+results/*.log
+
+# Model Cache
+models/
+.cache/
+*.gguf
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# HuggingFace cache
+.cache/
+
+# Jupyter
+.ipynb_checkpoints
+
+# Environment
+.env
+.env.local
+
+# Temporary
+*.tmp
+*.bak
+
+# Ollama (ローカルのみ)
+.ollama/

@@ -1,0 +1,31 @@
+# Gemma3 RAG KasenSabo MVP - Dependencies
+
+# Core RAG Framework
+llama-index-core
+llama-index-llms-ollama
+llama-index-embeddings-huggingface
+
+# Vector Database - Use FAISS instead of ChromaDB to avoid C++ build issues
+faiss-cpu
+llama-index-vector-stores-faiss
+
+# Ollama Client
+ollama
+
+# Document Processing
+pypdf
+markdown
+
+# Evaluation Metrics
+scikit-learn
+nltk
+rouge-score
+
+# Utilities
+pyyaml
+tqdm
+pandas
+numpy
+
+# Monitoring
+psutil
