@@ -42,21 +42,32 @@ def load_cluster_results():
         print(f"\n❌ データ読み込みエラー: {e}")
         return None, None
 
-def plot_pca_clusters(df):
-    """PCAによる2次元クラスタ散布図"""
-    print("\n📊 PCA散布図を作成中...")
+def plot_pca_clusters(df, dim_reduction_method='PCA', embedding=None):
+    """クラスタ散布図（最適次元削減手法を使用）
     
-    # 特徴量を取得
-    feature_cols = [col for col in config.FEATURE_COLUMNS if col in df.columns]
-    X = df[feature_cols].fillna(0)
+    Parameters:
+    -----------
+    df : DataFrame
+        クラスタラベル付きデータ
+    dim_reduction_method : str
+        次元削減手法名 ('PCA', 't-SNE', 'UMAP')
+    embedding : array-like, optional
+        2次元埋め込みデータ（指定されない場合はPCAを実行）
+    """
+    print(f"\n📊 {dim_reduction_method}散布図を作成中...")
     
-    # 標準化
-    scaler = StandardScaler()
-    X_scaled = scaler.fit_transform(X)
-    
-    # PCA
-    pca = PCA(n_components=2)
-    X_pca = pca.fit_transform(X_scaled)
+    # 埋め込みが指定されていない場合はPCAを実行
+    if embedding is None:
+        feature_cols = [col for col in config.FEATURE_COLUMNS if col in df.columns]
+        X = df[feature_cols].fillna(0)
+        scaler = StandardScaler()
+        X_scaled = scaler.fit_transform(X)
+        pca = PCA(n_components=2)
+        X_reduced = pca.fit_transform(X_scaled)
+        dim_reduction_method = 'PCA'
+    else:
+        X_reduced = embedding
+        pca = None
     
     # プロット
     plt.figure(figsize=config.FIGURE_SIZE)
@@ -66,7 +77,7 @@ def plot_pca_clusters(df):
     
     for cluster_id in sorted(df['cluster'].unique()):
         mask = df['cluster'] == cluster_id
-        plt.scatter(X_pca[mask, 0], X_pca[mask, 1],
+        plt.scatter(X_reduced[mask, 0], X_reduced[mask, 1],
                    c=[colors(cluster_id)],
                    label=f'クラスタ {cluster_id}',
                    alpha=0.6,
@@ -74,9 +85,27 @@ def plot_pca_clusters(df):
                    linewidth=0.5,
                    s=100)
     
-    plt.xlabel(f'第1主成分 ({pca.explained_variance_ratio_[0]:.1%})', fontsize=12)
-    plt.ylabel(f'第2主成分 ({pca.explained_variance_ratio_[1]:.1%})', fontsize=12)
-    plt.title('橋梁維持管理クラスタリング結果（PCA 2次元可視化）', fontsize=14, fontweight='bold')
+    # 軸ラベルとタイトルを次元削減手法に応じて設定
+    if dim_reduction_method == 'PCA' and pca is not None:
+        xlabel = f'第1主成分 ({pca.explained_variance_ratio_[0]:.1%})'
+        ylabel = f'第2主成分 ({pca.explained_variance_ratio_[1]:.1%})'
+        title = '橋梁維持管理クラスタリング結果（PCA 2次元可視化）'
+    elif dim_reduction_method == 't-SNE':
+        xlabel = 't-SNE 成分 1'
+        ylabel = 't-SNE 成分 2'
+        title = '橋梁維持管理クラスタリング結果（t-SNE 2次元可視化）'
+    elif dim_reduction_method == 'UMAP':
+        xlabel = 'UMAP 成分 1'
+        ylabel = 'UMAP 成分 2'
+        title = '橋梁維持管理クラスタリング結果（UMAP 2次元可視化）'
+    else:
+        xlabel = '成分 1'
+        ylabel = '成分 2'
+        title = f'橋梁維持管理クラスタリング結果（{dim_reduction_method} 2次元可視化）'
+    
+    plt.xlabel(xlabel, fontsize=12)
+    plt.ylabel(ylabel, fontsize=12)
+    plt.title(title, fontsize=14, fontweight='bold')
     plt.legend(title='クラスタ', bbox_to_anchor=(1.05, 1), loc='upper left')
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
@@ -168,30 +197,28 @@ def plot_radar_chart(cluster_summary):
     plt.show()
 
 def plot_cluster_distribution(df):
-    """クラスタ分布の棒グラフ"""
+    """クラスタ分布の横棒グラフ"""
     print("\n📊 クラスタ分布を作成中...")
     
     cluster_counts = df['cluster'].value_counts().sort_index()
     
-    plt.figure(figsize=(8, 6))
+    plt.figure(figsize=(8, max(6, len(cluster_counts) * 0.3)))
     
     colors = plt.cm.get_cmap(config.COLOR_PALETTE, len(cluster_counts))
-    bars = plt.bar(cluster_counts.index, cluster_counts.values,
+    bars = plt.barh(cluster_counts.index, cluster_counts.values,
                    color=[colors(i) for i in range(len(cluster_counts))],
                    edgecolor='black',
                    linewidth=1.5)
     
-    # 棒の上に値を表示
-    for bar in bars:
-        height = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width()/2., height,
-                f'{int(height)}\n({height/len(df)*100:.1f}%)',
-                ha='center', va='bottom', fontsize=10, fontweight='bold')
+    # 棒の右に値を表示
+    for i, (cluster_id, count) in enumerate(cluster_counts.items()):
+        plt.text(count, i, f' {int(count)} ({count/len(df)*100:.1f}%)',
+                va='center', ha='left', fontsize=10, fontweight='bold')
     
-    plt.xlabel('クラスタ', fontsize=12)
-    plt.ylabel('橋梁数', fontsize=12)
+    plt.ylabel('クラスタ', fontsize=12)
+    plt.xlabel('橋梁数', fontsize=12)
     plt.title('クラスタごとの橋梁分布', fontsize=14, fontweight='bold')
-    plt.grid(axis='y', alpha=0.3)
+    plt.grid(axis='x', alpha=0.3)
     plt.tight_layout()
     
     output_path = os.path.join(config.OUTPUT_DIR, 'cluster_distribution.png')
@@ -200,13 +227,14 @@ def plot_cluster_distribution(df):
     plt.show()
 
 def plot_feature_boxplots(df):
-    """特徴量のクラスタ別箱ひげ図"""
+    """特徴量のクラスタ別箱ひげ図（13特徴量すべて）"""
     print("\n📦 特徴量の箱ひげ図を作成中...")
     
     feature_cols = [col for col in config.FEATURE_COLUMNS if col in df.columns]
     n_features = len(feature_cols)
     
-    fig, axes = plt.subplots(2, 3, figsize=(15, 10))
+    # 13特徴量を表示するため、5行3列のサブプロットに変更
+    fig, axes = plt.subplots(5, 3, figsize=(18, 20))
     axes = axes.flatten()
     
     for i, feature in enumerate(feature_cols):
@@ -292,8 +320,16 @@ def create_cluster_report(df, cluster_summary):
     
     print(f"✓ 保存完了: {output_path}")
 
-def main():
-    """メイン処理"""
+def main(dim_reduction_method='PCA', embedding=None):
+    """メイン処理
+    
+    Parameters:
+    -----------
+    dim_reduction_method : str
+        次元削減手法名 ('PCA', 't-SNE', 'UMAP')
+    embedding : array-like, optional
+        2次元埋め込みデータ
+    """
     print("\n" + "="*60)
     print("📊 クラスタリング結果の可視化")
     print("="*60)
@@ -304,7 +340,7 @@ def main():
         return
     
     # 各種可視化
-    plot_pca_clusters(df)
+    plot_pca_clusters(df, dim_reduction_method=dim_reduction_method, embedding=embedding)
     plot_cluster_heatmap(cluster_summary)
     plot_radar_chart(cluster_summary)
     plot_cluster_distribution(df)

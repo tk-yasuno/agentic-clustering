@@ -321,7 +321,8 @@ class AlternativeDimensionalityReduction:
         if perplexity_range is None:
             # データサイズに応じて適切なperplexityを選択
             n_samples = len(self.X_scaled)
-            perplexity_range = [min(30, n_samples // 4), 
+            perplexity_range = [10,
+                               min(30, n_samples // 4), 
                                min(50, n_samples // 3)]
         
         best_tsne = None

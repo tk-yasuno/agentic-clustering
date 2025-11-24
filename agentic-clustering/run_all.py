@@ -90,7 +90,10 @@ def main():
         print("\n" + "─"*70)
         print("【ステップ 3/3】結果の可視化")
         print("─"*70)
-        visualization.main()
+        visualization.main(
+            dim_reduction_method=result['dim_reduction_method'],
+            embedding=result['embedding']
+        )
         
         # 完了メッセージ
         print("\n" + "="*70)
