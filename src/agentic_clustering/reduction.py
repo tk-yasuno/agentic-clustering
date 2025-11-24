@@ -134,7 +134,7 @@ class DimensionalityReducer:
         self.reducer = TSNE(
             n_components=self.n_components,
             perplexity=perplexity,
-            n_iter=1000,  # Increased for better convergence
+            max_iter=1000,  # Increased for better convergence
             learning_rate='auto',  # Automatic learning rate
             random_state=self.random_state,
             init='pca',  # Better initialization
