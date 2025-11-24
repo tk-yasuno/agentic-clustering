@@ -21,14 +21,16 @@ CLUSTER_RESULT_FILE = os.path.join(OUTPUT_DIR, "cluster_results.csv")
 CLUSTER_SUMMARY_FILE = os.path.join(OUTPUT_DIR, "cluster_summary.csv")
 
 # クラスタリングパラメータ
+MAX_MUNICIPALITIES = 19  # 山口県の自治体総数
 MIN_CLUSTERS = 2
-MAX_CLUSTERS = 28  # 山口県の市町村数(19) × 1.5
+MAX_CLUSTERS = MAX_MUNICIPALITIES  # K-Means/GMMの最大クラスタ数を自治体総数に設定
 RANDOM_STATE = 42
 
 # Agenticワークフローパラメータ
 QUALITY_THRESHOLD = 60.0  # クラスタリング品質閾値
 OVERLAP_THRESHOLD = 0.10  # オーバーラップ閾値
-DBSCAN_CLUSTER_THRESHOLD = 50  # DBSCANのクラスタ数がこの値を超える場合はCLASSIXを試行
+DBSCAN_CLUSTER_THRESHOLD = MAX_MUNICIPALITIES  # DBSCANのクラスタ数がこの値を超える場合はHDBSCANを試行
+HDBSCAN_TARGET_CLUSTERS = int(MAX_MUNICIPALITIES * 1.5)  # HDBSCAN目標クラスタ数（28）
 
 # PCAコンポーネント数
 PCA_COMPONENTS = 2

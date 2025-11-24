@@ -1,0 +1,789 @@
+======================================================================
+橋梁維持管理クラスタリング分析レポート
+======================================================================
+
+【クラスタ分布】
+  クラスタ -1: 1662件 (38.7%)
+  クラスタ 0: 86件 (2.0%)
+  クラスタ 1: 39件 (0.9%)
+  クラスタ 2: 62件 (1.4%)
+  クラスタ 3: 41件 (1.0%)
+  クラスタ 4: 52件 (1.2%)
+  クラスタ 5: 68件 (1.6%)
+  クラスタ 6: 120件 (2.8%)
+  クラスタ 7: 36件 (0.8%)
+  クラスタ 8: 50件 (1.2%)
+  クラスタ 9: 41件 (1.0%)
+  クラスタ 10: 175件 (4.1%)
+  クラスタ 11: 41件 (1.0%)
+  クラスタ 12: 84件 (2.0%)
+  クラスタ 13: 36件 (0.8%)
+  クラスタ 14: 109件 (2.5%)
+  クラスタ 15: 30件 (0.7%)
+  クラスタ 16: 37件 (0.9%)
+  クラスタ 17: 71件 (1.7%)
+  クラスタ 18: 30件 (0.7%)
+  クラスタ 19: 59件 (1.4%)
+  クラスタ 20: 105件 (2.4%)
+  クラスタ 21: 48件 (1.1%)
+  クラスタ 22: 47件 (1.1%)
+  クラスタ 23: 144件 (3.4%)
+  クラスタ 24: 128件 (3.0%)
+  クラスタ 25: 43件 (1.0%)
+  クラスタ 26: 135件 (3.1%)
+  クラスタ 27: 88件 (2.1%)
+  クラスタ 28: 45件 (1.0%)
+  クラスタ 29: 36件 (0.8%)
+  クラスタ 30: 129件 (3.0%)
+  クラスタ 31: 35件 (0.8%)
+  クラスタ 32: 42件 (1.0%)
+  クラスタ 33: 44件 (1.0%)
+  クラスタ 34: 39件 (0.9%)
+  クラスタ 35: 150件 (3.5%)
+  クラスタ 36: 44件 (1.0%)
+  クラスタ 37: 61件 (1.4%)
+
+  合計: 4292件
+
+【クラスタごとの特徴量平均】
+         bridge_age  condition_score  maintenance_priority  future_burden_ratio  aging_rate  fiscal_index  structure_category  bridge_area  emergency_route  overpass  repair_year_normalized  under_river  distance_to_coast_km
+cluster                                                                                                                                                                                                                         
+-1        50.111312         1.974128            102.410951            44.721710   36.076771      0.579924            1.780385   344.515464         0.551745  0.001203                0.184644     0.509025              9.427097
+ 0        44.081395         2.197674            100.790698            40.480910   35.483317      0.576107            2.104651  1105.203756         0.674419  1.000000                0.284708     0.127907              4.673529
+ 1        42.410256         1.666667             72.923077           118.100000   29.702235      0.400000            1.358974   128.804615         0.897436  0.000000                0.045066     0.333333              1.011036
+ 2        52.629032         1.629032             87.193548             8.400000   44.447954      0.320000            1.177419    59.695792         0.451613  0.000000                0.000000     0.000000              2.082645
+ 3        45.390244         1.731707             81.878049             8.400000   44.447954      0.320000            1.487805   142.351829         1.000000  0.000000                0.000000     1.000000              3.870875
+ 4        45.211538         1.711538             79.250000             8.400000   44.447954      0.320000            1.480769   168.885096         0.000000  0.000000                0.000000     1.000000              4.063939
+ 5        59.602941         1.911765            113.647059            41.230759   35.257073      0.592466            1.161765   107.459529         0.000000  0.000000                0.899287     1.000000             10.020326
+ 6        47.416667         1.808333             84.433333            49.395207   35.178153      0.592585            1.941667   314.619700         1.000000  0.000000                0.876768     1.000000              8.701944
+ 7        55.527778         2.111111            117.333333            43.654397   33.027323      0.585977            1.222222    86.694806         0.000000  0.000000                0.925084     0.000000              2.515028
+ 8        51.720000         2.000000            104.120000            45.673999   33.627742      0.557376            1.360000   182.468500         1.000000  0.000000                0.896970     0.000000              2.396472
+ 9        56.731707         3.000000            170.195122            47.552031   34.569597      0.567852            1.000000    37.296146         0.000000  0.000000                0.000000     0.000000              7.666007
+ 10       51.262857         1.005714             51.377143            52.004713   34.633071      0.581541            1.222857    43.207921         0.000000  0.000000                0.000000     0.000000             10.117798
+ 11       61.268293         2.000000            122.536585            44.400000   44.333664      0.390000            1.048780    31.082317         0.000000  0.000000                0.000000     0.000000             15.283887
+ 12       59.547619         3.000000            178.642857            49.415077   36.248348      0.568618            1.130952    84.803786         0.000000  0.000000                0.000000     1.000000             12.197797
+ 13       48.555556         2.000000             97.111111            52.957638   31.466168      0.601299            2.000000    74.031744         0.000000  0.000000                0.000000     0.000000              3.472918
+ 14       44.211009         1.000000             44.211009            52.365901   32.433322      0.588771            1.394495   117.166046         1.000000  0.000000                0.000000     0.000000              6.410115
+ 15       52.666667         2.000000            105.333333            66.300000   33.374124      0.760000            1.000000    40.998050         0.000000  0.000000                0.000000     0.000000              7.330580
+ 16       36.648649         1.000000             36.648649            44.400000   44.333664      0.390000            1.810811   220.795405         1.000000  0.000000                0.000000     1.000000             14.699985
+ 17       51.126761         2.000000            102.253521            44.400000   44.333664      0.390000            1.394366    96.795352         0.000000  0.000000                0.000000     1.000000             14.251381
+ 18       50.600000         2.000000            101.200000            44.400000   44.333664      0.390000            1.000000    88.810933         1.000000  0.000000                0.000000     0.000000             16.485051
+ 19       51.101695         1.000000             51.101695            46.278247   33.547042      0.563057            1.000000    64.521186         1.000000  0.000000                0.000000     1.000000              6.217665
+ 20       33.590476         1.000000             33.590476            50.742936   34.111642      0.581327            2.000000   241.509000         1.000000  0.000000                0.000000     1.000000             10.630870
+ 21       28.750000         1.000000             28.750000            44.352256   36.075133      0.548123            2.000000   198.095354         0.000000  0.000000                0.000000     1.000000              7.879338
+ 22       35.468085         1.000000             35.468085            62.200000   30.058113      0.630000            2.000000   175.032894         0.000000  0.000000                0.000000     1.000000             16.177855
+ 23       38.125000         2.000000             76.250000            53.098610   34.957390      0.610261            2.000000   177.423914         0.000000  0.000000                0.000000     1.000000             10.646490
+ 24       56.117188         2.000000            112.234375            45.234243   34.512980      0.558314            1.000000    36.727617         0.000000  0.000000                0.000000     0.000000              5.704302
+ 25       53.558140         2.000000            107.116279            62.200000   30.058113      0.630000            1.000000    86.572163         0.000000  0.000000                0.000000     0.000000              9.354632
+ 26       54.800000         2.000000            109.600000            48.997776   35.526182      0.575899            1.000000    64.619904         1.000000  0.000000                0.000000     1.000000              9.912427
+ 27       54.136364         1.000000             54.136364            45.625661   37.834174      0.557645            1.000000    41.086557         0.000000  0.000000                0.000000     1.000000             11.700606
+ 28       53.600000         1.000000             53.600000            62.200000   30.058113      0.630000            1.000000    41.561244         0.000000  0.000000                0.000000     1.000000             17.327895
+ 29       38.027778         2.000000             76.055556            66.300000   33.374124      0.760000            2.000000   282.785278         1.000000  0.000000                0.000000     1.000000             14.073263
+ 30       41.317829         2.000000             82.635659            48.940308   36.223680      0.571213            2.000000   248.977116         1.000000  0.000000                0.000000     1.000000              8.769160
+ 31       61.828571         2.000000            123.657143            66.300000   33.374124      0.760000            1.000000    43.922800         0.000000  0.000000                0.000000     1.000000             13.578723
+ 32       52.238095         2.000000            104.476190            62.200000   30.058113      0.630000            1.000000    76.001905         1.000000  0.000000                0.000000     0.000000             13.126986
+ 33       61.522727         2.000000            123.045455            62.200000   30.058113      0.630000            1.000000    50.908616         0.000000  0.000000                0.000000     1.000000             15.939829
+ 34       61.769231         2.000000            123.538462            46.958330   44.589676      0.565784            1.000000    54.657590         0.000000  0.000000                0.000000     1.000000              9.538423
+ 35       61.853333         2.000000            123.706667            45.946387   35.009150      0.560732            1.000000    44.660991         0.000000  0.000000                0.000000     1.000000             10.587732
+ 36       51.363636         2.000000            102.727273            46.958330   30.141552      0.565784            1.000000    65.358159         1.000000  0.000000                0.000000     0.000000              0.863576
+ 37       51.606557         2.000000            103.213115            43.937431   36.241528      0.548807            1.000000    70.054738         1.000000  0.000000                0.000000     0.000000              4.284575
+
+【クラスタ解釈】
+
+■ クラスタ -1
+  - bridge_age: 50.11
+  - condition_score: 1.97
+  - maintenance_priority: 102.41
+  - future_burden_ratio: 44.72
+  - aging_rate: 36.08
+  - fiscal_index: 0.58
+  - structure_category: 1.78
+  - bridge_area: 344.52
+  - emergency_route: 0.55
+  - overpass: 0.00
+  - repair_year_normalized: 0.18
+  - under_river: 0.51
+  - distance_to_coast_km: 9.43
+
+  【評価】🔴 高リスク
+  【要因】高橋齢, 高補修優先度, 高齢化
+
+■ クラスタ 0
+  - bridge_age: 44.08
+  - condition_score: 2.20
+  - maintenance_priority: 100.79
+  - future_burden_ratio: 40.48
+  - aging_rate: 35.48
+  - fiscal_index: 0.58
+  - structure_category: 2.10
+  - bridge_area: 1105.20
+  - emergency_route: 0.67
+  - overpass: 1.00
+  - repair_year_normalized: 0.28
+  - under_river: 0.13
+  - distance_to_coast_km: 4.67
+
+  【評価】🟡 中リスク
+  【要因】高補修優先度, 高齢化
+
+■ クラスタ 1
+  - bridge_age: 42.41
+  - condition_score: 1.67
+  - maintenance_priority: 72.92
+  - future_burden_ratio: 118.10
+  - aging_rate: 29.70
+  - fiscal_index: 0.40
+  - structure_category: 1.36
+  - bridge_area: 128.80
+  - emergency_route: 0.90
+  - overpass: 0.00
+  - repair_year_normalized: 0.05
+  - under_river: 0.33
+  - distance_to_coast_km: 1.01
+
+  【評価】🟢 低リスク
+  【要因】財政力弱
+
+■ クラスタ 2
+  - bridge_age: 52.63
+  - condition_score: 1.63
+  - maintenance_priority: 87.19
+  - future_burden_ratio: 8.40
+  - aging_rate: 44.45
+  - fiscal_index: 0.32
+  - structure_category: 1.18
+  - bridge_area: 59.70
+  - emergency_route: 0.45
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 0.00
+  - distance_to_coast_km: 2.08
+
+  【評価】🔴 高リスク
+  【要因】高橋齢, 高齢化, 財政力弱
+
+■ クラスタ 3
+  - bridge_age: 45.39
+  - condition_score: 1.73
+  - maintenance_priority: 81.88
+  - future_burden_ratio: 8.40
+  - aging_rate: 44.45
+  - fiscal_index: 0.32
+  - structure_category: 1.49
+  - bridge_area: 142.35
+  - emergency_route: 1.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 1.00
+  - distance_to_coast_km: 3.87
+
+  【評価】🟡 中リスク
+  【要因】高齢化, 財政力弱
+
+■ クラスタ 4
+  - bridge_age: 45.21
+  - condition_score: 1.71
+  - maintenance_priority: 79.25
+  - future_burden_ratio: 8.40
+  - aging_rate: 44.45
+  - fiscal_index: 0.32
+  - structure_category: 1.48
+  - bridge_area: 168.89
+  - emergency_route: 0.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 1.00
+  - distance_to_coast_km: 4.06
+
+  【評価】🟡 中リスク
+  【要因】高齢化, 財政力弱
+
+■ クラスタ 5
+  - bridge_age: 59.60
+  - condition_score: 1.91
+  - maintenance_priority: 113.65
+  - future_burden_ratio: 41.23
+  - aging_rate: 35.26
+  - fiscal_index: 0.59
+  - structure_category: 1.16
+  - bridge_area: 107.46
+  - emergency_route: 0.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.90
+  - under_river: 1.00
+  - distance_to_coast_km: 10.02
+
+  【評価】🔴 高リスク
+  【要因】高橋齢, 高補修優先度, 高齢化
+
+■ クラスタ 6
+  - bridge_age: 47.42
+  - condition_score: 1.81
+  - maintenance_priority: 84.43
+  - future_burden_ratio: 49.40
+  - aging_rate: 35.18
+  - fiscal_index: 0.59
+  - structure_category: 1.94
+  - bridge_area: 314.62
+  - emergency_route: 1.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.88
+  - under_river: 1.00
+  - distance_to_coast_km: 8.70
+
+  【評価】🟢 低リスク
+  【要因】高齢化
+
+■ クラスタ 7
+  - bridge_age: 55.53
+  - condition_score: 2.11
+  - maintenance_priority: 117.33
+  - future_burden_ratio: 43.65
+  - aging_rate: 33.03
+  - fiscal_index: 0.59
+  - structure_category: 1.22
+  - bridge_area: 86.69
+  - emergency_route: 0.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.93
+  - under_river: 0.00
+  - distance_to_coast_km: 2.52
+
+  【評価】🟡 中リスク
+  【要因】高橋齢, 高補修優先度
+
+■ クラスタ 8
+  - bridge_age: 51.72
+  - condition_score: 2.00
+  - maintenance_priority: 104.12
+  - future_burden_ratio: 45.67
+  - aging_rate: 33.63
+  - fiscal_index: 0.56
+  - structure_category: 1.36
+  - bridge_area: 182.47
+  - emergency_route: 1.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.90
+  - under_river: 0.00
+  - distance_to_coast_km: 2.40
+
+  【評価】🟡 中リスク
+  【要因】高橋齢, 高補修優先度
+
+■ クラスタ 9
+  - bridge_age: 56.73
+  - condition_score: 3.00
+  - maintenance_priority: 170.20
+  - future_burden_ratio: 47.55
+  - aging_rate: 34.57
+  - fiscal_index: 0.57
+  - structure_category: 1.00
+  - bridge_area: 37.30
+  - emergency_route: 0.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 0.00
+  - distance_to_coast_km: 7.67
+
+  【評価】🔴 高リスク
+  【要因】高橋齢, 健全度低下, 高補修優先度
+
+■ クラスタ 10
+  - bridge_age: 51.26
+  - condition_score: 1.01
+  - maintenance_priority: 51.38
+  - future_burden_ratio: 52.00
+  - aging_rate: 34.63
+  - fiscal_index: 0.58
+  - structure_category: 1.22
+  - bridge_area: 43.21
+  - emergency_route: 0.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 0.00
+  - distance_to_coast_km: 10.12
+
+  【評価】🟢 低リスク
+  【要因】高橋齢
+
+■ クラスタ 11
+  - bridge_age: 61.27
+  - condition_score: 2.00
+  - maintenance_priority: 122.54
+  - future_burden_ratio: 44.40
+  - aging_rate: 44.33
+  - fiscal_index: 0.39
+  - structure_category: 1.05
+  - bridge_area: 31.08
+  - emergency_route: 0.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 0.00
+  - distance_to_coast_km: 15.28
+
+  【評価】🔴 高リスク
+  【要因】高橋齢, 高補修優先度, 高齢化, 財政力弱
+
+■ クラスタ 12
+  - bridge_age: 59.55
+  - condition_score: 3.00
+  - maintenance_priority: 178.64
+  - future_burden_ratio: 49.42
+  - aging_rate: 36.25
+  - fiscal_index: 0.57
+  - structure_category: 1.13
+  - bridge_area: 84.80
+  - emergency_route: 0.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 1.00
+  - distance_to_coast_km: 12.20
+
+  【評価】🔴 高リスク
+  【要因】高橋齢, 健全度低下, 高補修優先度, 高齢化
+
+■ クラスタ 13
+  - bridge_age: 48.56
+  - condition_score: 2.00
+  - maintenance_priority: 97.11
+  - future_burden_ratio: 52.96
+  - aging_rate: 31.47
+  - fiscal_index: 0.60
+  - structure_category: 2.00
+  - bridge_area: 74.03
+  - emergency_route: 0.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 0.00
+  - distance_to_coast_km: 3.47
+
+  【評価】🟢 低リスク
+
+■ クラスタ 14
+  - bridge_age: 44.21
+  - condition_score: 1.00
+  - maintenance_priority: 44.21
+  - future_burden_ratio: 52.37
+  - aging_rate: 32.43
+  - fiscal_index: 0.59
+  - structure_category: 1.39
+  - bridge_area: 117.17
+  - emergency_route: 1.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 0.00
+  - distance_to_coast_km: 6.41
+
+  【評価】🟢 低リスク
+
+■ クラスタ 15
+  - bridge_age: 52.67
+  - condition_score: 2.00
+  - maintenance_priority: 105.33
+  - future_burden_ratio: 66.30
+  - aging_rate: 33.37
+  - fiscal_index: 0.76
+  - structure_category: 1.00
+  - bridge_area: 41.00
+  - emergency_route: 0.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 0.00
+  - distance_to_coast_km: 7.33
+
+  【評価】🟡 中リスク
+  【要因】高橋齢, 高補修優先度
+
+■ クラスタ 16
+  - bridge_age: 36.65
+  - condition_score: 1.00
+  - maintenance_priority: 36.65
+  - future_burden_ratio: 44.40
+  - aging_rate: 44.33
+  - fiscal_index: 0.39
+  - structure_category: 1.81
+  - bridge_area: 220.80
+  - emergency_route: 1.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 1.00
+  - distance_to_coast_km: 14.70
+
+  【評価】🟡 中リスク
+  【要因】高齢化, 財政力弱
+
+■ クラスタ 17
+  - bridge_age: 51.13
+  - condition_score: 2.00
+  - maintenance_priority: 102.25
+  - future_burden_ratio: 44.40
+  - aging_rate: 44.33
+  - fiscal_index: 0.39
+  - structure_category: 1.39
+  - bridge_area: 96.80
+  - emergency_route: 0.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 1.00
+  - distance_to_coast_km: 14.25
+
+  【評価】🔴 高リスク
+  【要因】高橋齢, 高補修優先度, 高齢化, 財政力弱
+
+■ クラスタ 18
+  - bridge_age: 50.60
+  - condition_score: 2.00
+  - maintenance_priority: 101.20
+  - future_burden_ratio: 44.40
+  - aging_rate: 44.33
+  - fiscal_index: 0.39
+  - structure_category: 1.00
+  - bridge_area: 88.81
+  - emergency_route: 1.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 0.00
+  - distance_to_coast_km: 16.49
+
+  【評価】🔴 高リスク
+  【要因】高橋齢, 高補修優先度, 高齢化, 財政力弱
+
+■ クラスタ 19
+  - bridge_age: 51.10
+  - condition_score: 1.00
+  - maintenance_priority: 51.10
+  - future_burden_ratio: 46.28
+  - aging_rate: 33.55
+  - fiscal_index: 0.56
+  - structure_category: 1.00
+  - bridge_area: 64.52
+  - emergency_route: 1.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 1.00
+  - distance_to_coast_km: 6.22
+
+  【評価】🟢 低リスク
+  【要因】高橋齢
+
+■ クラスタ 20
+  - bridge_age: 33.59
+  - condition_score: 1.00
+  - maintenance_priority: 33.59
+  - future_burden_ratio: 50.74
+  - aging_rate: 34.11
+  - fiscal_index: 0.58
+  - structure_category: 2.00
+  - bridge_area: 241.51
+  - emergency_route: 1.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 1.00
+  - distance_to_coast_km: 10.63
+
+  【評価】🟢 低リスク
+
+■ クラスタ 21
+  - bridge_age: 28.75
+  - condition_score: 1.00
+  - maintenance_priority: 28.75
+  - future_burden_ratio: 44.35
+  - aging_rate: 36.08
+  - fiscal_index: 0.55
+  - structure_category: 2.00
+  - bridge_area: 198.10
+  - emergency_route: 0.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 1.00
+  - distance_to_coast_km: 7.88
+
+  【評価】🟢 低リスク
+  【要因】高齢化
+
+■ クラスタ 22
+  - bridge_age: 35.47
+  - condition_score: 1.00
+  - maintenance_priority: 35.47
+  - future_burden_ratio: 62.20
+  - aging_rate: 30.06
+  - fiscal_index: 0.63
+  - structure_category: 2.00
+  - bridge_area: 175.03
+  - emergency_route: 0.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 1.00
+  - distance_to_coast_km: 16.18
+
+  【評価】🟢 低リスク
+
+■ クラスタ 23
+  - bridge_age: 38.12
+  - condition_score: 2.00
+  - maintenance_priority: 76.25
+  - future_burden_ratio: 53.10
+  - aging_rate: 34.96
+  - fiscal_index: 0.61
+  - structure_category: 2.00
+  - bridge_area: 177.42
+  - emergency_route: 0.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 1.00
+  - distance_to_coast_km: 10.65
+
+  【評価】🟢 低リスク
+
+■ クラスタ 24
+  - bridge_age: 56.12
+  - condition_score: 2.00
+  - maintenance_priority: 112.23
+  - future_burden_ratio: 45.23
+  - aging_rate: 34.51
+  - fiscal_index: 0.56
+  - structure_category: 1.00
+  - bridge_area: 36.73
+  - emergency_route: 0.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 0.00
+  - distance_to_coast_km: 5.70
+
+  【評価】🟡 中リスク
+  【要因】高橋齢, 高補修優先度
+
+■ クラスタ 25
+  - bridge_age: 53.56
+  - condition_score: 2.00
+  - maintenance_priority: 107.12
+  - future_burden_ratio: 62.20
+  - aging_rate: 30.06
+  - fiscal_index: 0.63
+  - structure_category: 1.00
+  - bridge_area: 86.57
+  - emergency_route: 0.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 0.00
+  - distance_to_coast_km: 9.35
+
+  【評価】🟡 中リスク
+  【要因】高橋齢, 高補修優先度
+
+■ クラスタ 26
+  - bridge_age: 54.80
+  - condition_score: 2.00
+  - maintenance_priority: 109.60
+  - future_burden_ratio: 49.00
+  - aging_rate: 35.53
+  - fiscal_index: 0.58
+  - structure_category: 1.00
+  - bridge_area: 64.62
+  - emergency_route: 1.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 1.00
+  - distance_to_coast_km: 9.91
+
+  【評価】🔴 高リスク
+  【要因】高橋齢, 高補修優先度, 高齢化
+
+■ クラスタ 27
+  - bridge_age: 54.14
+  - condition_score: 1.00
+  - maintenance_priority: 54.14
+  - future_burden_ratio: 45.63
+  - aging_rate: 37.83
+  - fiscal_index: 0.56
+  - structure_category: 1.00
+  - bridge_area: 41.09
+  - emergency_route: 0.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 1.00
+  - distance_to_coast_km: 11.70
+
+  【評価】🟡 中リスク
+  【要因】高橋齢, 高齢化
+
+■ クラスタ 28
+  - bridge_age: 53.60
+  - condition_score: 1.00
+  - maintenance_priority: 53.60
+  - future_burden_ratio: 62.20
+  - aging_rate: 30.06
+  - fiscal_index: 0.63
+  - structure_category: 1.00
+  - bridge_area: 41.56
+  - emergency_route: 0.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 1.00
+  - distance_to_coast_km: 17.33
+
+  【評価】🟢 低リスク
+  【要因】高橋齢
+
+■ クラスタ 29
+  - bridge_age: 38.03
+  - condition_score: 2.00
+  - maintenance_priority: 76.06
+  - future_burden_ratio: 66.30
+  - aging_rate: 33.37
+  - fiscal_index: 0.76
+  - structure_category: 2.00
+  - bridge_area: 282.79
+  - emergency_route: 1.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 1.00
+  - distance_to_coast_km: 14.07
+
+  【評価】🟢 低リスク
+
+■ クラスタ 30
+  - bridge_age: 41.32
+  - condition_score: 2.00
+  - maintenance_priority: 82.64
+  - future_burden_ratio: 48.94
+  - aging_rate: 36.22
+  - fiscal_index: 0.57
+  - structure_category: 2.00
+  - bridge_area: 248.98
+  - emergency_route: 1.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 1.00
+  - distance_to_coast_km: 8.77
+
+  【評価】🟢 低リスク
+  【要因】高齢化
+
+■ クラスタ 31
+  - bridge_age: 61.83
+  - condition_score: 2.00
+  - maintenance_priority: 123.66
+  - future_burden_ratio: 66.30
+  - aging_rate: 33.37
+  - fiscal_index: 0.76
+  - structure_category: 1.00
+  - bridge_area: 43.92
+  - emergency_route: 0.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 1.00
+  - distance_to_coast_km: 13.58
+
+  【評価】🟡 中リスク
+  【要因】高橋齢, 高補修優先度
+
+■ クラスタ 32
+  - bridge_age: 52.24
+  - condition_score: 2.00
+  - maintenance_priority: 104.48
+  - future_burden_ratio: 62.20
+  - aging_rate: 30.06
+  - fiscal_index: 0.63
+  - structure_category: 1.00
+  - bridge_area: 76.00
+  - emergency_route: 1.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 0.00
+  - distance_to_coast_km: 13.13
+
+  【評価】🟡 中リスク
+  【要因】高橋齢, 高補修優先度
+
+■ クラスタ 33
+  - bridge_age: 61.52
+  - condition_score: 2.00
+  - maintenance_priority: 123.05
+  - future_burden_ratio: 62.20
+  - aging_rate: 30.06
+  - fiscal_index: 0.63
+  - structure_category: 1.00
+  - bridge_area: 50.91
+  - emergency_route: 0.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 1.00
+  - distance_to_coast_km: 15.94
+
+  【評価】🟡 中リスク
+  【要因】高橋齢, 高補修優先度
+
+■ クラスタ 34
+  - bridge_age: 61.77
+  - condition_score: 2.00
+  - maintenance_priority: 123.54
+  - future_burden_ratio: 46.96
+  - aging_rate: 44.59
+  - fiscal_index: 0.57
+  - structure_category: 1.00
+  - bridge_area: 54.66
+  - emergency_route: 0.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 1.00
+  - distance_to_coast_km: 9.54
+
+  【評価】🔴 高リスク
+  【要因】高橋齢, 高補修優先度, 高齢化
+
+■ クラスタ 35
+  - bridge_age: 61.85
+  - condition_score: 2.00
+  - maintenance_priority: 123.71
+  - future_burden_ratio: 45.95
+  - aging_rate: 35.01
+  - fiscal_index: 0.56
+  - structure_category: 1.00
+  - bridge_area: 44.66
+  - emergency_route: 0.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 1.00
+  - distance_to_coast_km: 10.59
+
+  【評価】🔴 高リスク
+  【要因】高橋齢, 高補修優先度, 高齢化
+
+■ クラスタ 36
+  - bridge_age: 51.36
+  - condition_score: 2.00
+  - maintenance_priority: 102.73
+  - future_burden_ratio: 46.96
+  - aging_rate: 30.14
+  - fiscal_index: 0.57
+  - structure_category: 1.00
+  - bridge_area: 65.36
+  - emergency_route: 1.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 0.00
+  - distance_to_coast_km: 0.86
+
+  【評価】🟡 中リスク
+  【要因】高橋齢, 高補修優先度
+
+■ クラスタ 37
+  - bridge_age: 51.61
+  - condition_score: 2.00
+  - maintenance_priority: 103.21
+  - future_burden_ratio: 43.94
+  - aging_rate: 36.24
+  - fiscal_index: 0.55
+  - structure_category: 1.00
+  - bridge_area: 70.05
+  - emergency_route: 1.00
+  - overpass: 0.00
+  - repair_year_normalized: 0.00
+  - under_river: 0.00
+  - distance_to_coast_km: 4.28
+
+  【評価】🔴 高リスク
+  【要因】高橋齢, 高補修優先度, 高齢化
+
+======================================================================

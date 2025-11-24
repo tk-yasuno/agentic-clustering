@@ -179,9 +179,10 @@ class AgenticClusteringWorkflow:
             if dbscan_n_clusters > config.DBSCAN_CLUSTER_THRESHOLD:
                 print(f"\n⚠️  DBSCANのクラスタ数({dbscan_n_clusters})が閾値({config.DBSCAN_CLUSTER_THRESHOLD})を超えています。")
                 print(f"   → 補修意思決定には扱いづらいため、HDBSCANを代替手法として試行します。")
+                print(f"   → HDBSCAN目標クラスタ数: {config.HDBSCAN_TARGET_CLUSTERS}")
                 
                 try:
-                    hdbscan_labels = alt_methods.try_hdbscan(target_clusters=50)
+                    hdbscan_labels = alt_methods.try_hdbscan(target_clusters=config.HDBSCAN_TARGET_CLUSTERS)
                     if hdbscan_labels is not None and 'HDBSCAN' in alt_methods.results:
                         self.clustering_results['HDBSCAN'] = alt_methods.results['HDBSCAN']
                         
