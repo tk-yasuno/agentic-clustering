@@ -44,6 +44,8 @@ pip install -e .
 
 ## Usage
 
+After installation:
+
 ```python
 from agentic_clustering import (
     GeospatialFeatureExtractor,
@@ -69,7 +71,11 @@ labels = workflow.fit_predict(X_reduced)
 Run the example script to see v0.5 features in action:
 
 ```bash
+# For development (without installation)
 python example_usage.py
+
+# After installation
+python -c "from agentic_clustering import GeospatialFeatureExtractor; print('Package installed successfully!')"
 ```
 
 ## Testing

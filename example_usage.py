@@ -2,15 +2,28 @@
 Example Usage of Agentic Clustering v0.5
 
 Demonstrates the 13-feature system, agentic workflow, and dimensionality reduction.
+
+Note: This script uses src imports for development. After installing the package
+(pip install -e . or pip install .), use:
+    from agentic_clustering import GeospatialFeatureExtractor, ...
 """
 
 import numpy as np
 import pandas as pd
+
+# Development import (for running directly from source)
 from src.agentic_clustering import (
     GeospatialFeatureExtractor,
     AgenticClusteringWorkflow,
     DimensionalityReducer
 )
+
+# After installation, use this instead:
+# from agentic_clustering import (
+#     GeospatialFeatureExtractor,
+#     AgenticClusteringWorkflow,
+#     DimensionalityReducer
+# )
 
 
 def generate_sample_bridge_data(n_samples: int = 1000) -> pd.DataFrame:
