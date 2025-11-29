@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Agenticクラスタリングワークフロー: v0.2
+Agenticクラスタリングワークフロー: v0.8
 自己評価と改善を繰り返す賢いクラスタリングシステム
 """
 
@@ -57,7 +57,7 @@ class AgenticClusteringWorkflow:
             次元削減のオーバーラップ閾値（0-1）
         """
         print("\n" + "="*70)
-        print("🤖 Agenticクラスタリングワークフロー v0.2")
+        print("🤖 Agenticクラスタリングワークフロー v0.8")
         print("="*70)
         
         # ステップ1: データ標準化
@@ -89,34 +89,16 @@ class AgenticClusteringWorkflow:
             self.best_clustering_labels = initial_labels
             self._log("✅ 初回クラスタリングで十分な品質が得られました")
         
-        # ステップ7: 次元削減（PCA）
-        self._log("【ラウンド1】初回次元削減（PCA）")
-        initial_embedding = self._initial_dimensionality_reduction()
+        # ステップ7: 次元削減（v0.8改: PCAは団子状態になるため、t-SNE/UMAPを直接使用）
+        self._log("【ラウンド1】次元削減（t-SNE/UMAP）")
         
-        # ステップ8: 次元削減のオーバーラップ評価
-        self._log("【評価2】次元削減のオーバーラップ評価")
-        dim_evaluator = DimensionalityReductionEvaluator(
-            initial_embedding, 
-            self.best_clustering_labels
-        )
-        pca_overlap = dim_evaluator.evaluate_overlap()
-        self.dim_evaluation_results['PCA'] = pca_overlap
+        # ステップ8: 代替次元削減手法の実行（PCAをスキップ）
+        self._log("【実行】t-SNE/UMAP次元削減")
+        self._try_alternative_dimensionality_reduction()
         
-        # ステップ9: オーバーラップが高い場合は代替手法
-        has_overlap = dim_evaluator.has_high_overlap(overlap_threshold)
-        
-        if has_overlap:
-            # ステップ10: 代替次元削減手法の実行
-            self._log("【ラウンド2】代替次元削減手法の試行")
-            self._try_alternative_dimensionality_reduction()
-            
-            # ステップ11: 最適次元削減手法の選択
-            self._log("【選択】最適次元削減手法の決定")
-            self._select_best_dimensionality_reduction()
-        else:
-            self.best_dim_reduction_method = 'PCA'
-            self.best_dim_reduction_embedding = initial_embedding
-            self._log("✅ PCAで十分な分離が得られました")
+        # ステップ9: 最適次元削減手法の選択
+        self._log("【選択】最適次元削減手法の決定")
+        self._select_best_dimensionality_reduction()
         
         # ステップ12: 結果のサマリー
         self._print_summary()
@@ -152,20 +134,29 @@ class AgenticClusteringWorkflow:
         # 初回のクラスタ数を参考値として使用
         reference_k = self.clustering_results['KMeans']['n_clusters']
         
-        # GMM (オフ: K-Meansと同様のスコアのため実行スキップ)
-        # try:
-        #     gmm_labels = alt_methods.try_gmm()
-        #     self.clustering_results['GMM'] = alt_methods.results['GMM']
-        #     
-        #     # 評価
-        #     evaluator = ClusterEvaluator(self.X_scaled, gmm_labels)
-        #     self.evaluation_results['GMM'] = evaluator.evaluate_all()
-        # except Exception as e:
-        #     print(f"   ⚠️ GMM実行エラー: {e}")
+        # GMM（Gaussian Mixture Model）
+        # v0.8改: ベイズ最適化を使用してパラメータ探索
+        try:
+            gmm_labels = alt_methods.try_gmm(
+                use_bayesian=True,
+                n_calls=100
+            )
+            self.clustering_results['GMM'] = alt_methods.results['GMM']
+            
+            # 評価
+            evaluator = ClusterEvaluator(self.X_scaled, gmm_labels)
+            self.evaluation_results['GMM'] = evaluator.evaluate_all()
+            print(f"   ✅ GMMを代替手法候補に追加しました。")
+        except Exception as e:
+            print(f"   ⚠️ GMM実行エラー: {e}")
         
         # DBSCAN
+        # v0.8改: ベイズ最適化を使用してパラメータ探索を効率化
         try:
-            dbscan_labels = alt_methods.try_dbscan()
+            dbscan_labels = alt_methods.try_dbscan(
+                use_bayesian=True,
+                n_calls=100
+            )
             self.clustering_results['DBSCAN'] = alt_methods.results['DBSCAN']
             dbscan_n_clusters = alt_methods.results['DBSCAN']['n_clusters']
             
@@ -174,39 +165,74 @@ class AgenticClusteringWorkflow:
             if mask.sum() > 1:
                 evaluator = ClusterEvaluator(self.X_scaled[mask], dbscan_labels[mask])
                 self.evaluation_results['DBSCAN'] = evaluator.evaluate_all()
-            
-            # 🆕 Agenticな判定: DBSCANのクラスタ数が閾値を超える場合はHDBSCANを試行
-            if dbscan_n_clusters > config.DBSCAN_CLUSTER_THRESHOLD:
-                print(f"\n⚠️  DBSCANのクラスタ数({dbscan_n_clusters})が閾値({config.DBSCAN_CLUSTER_THRESHOLD})を超えています。")
-                print(f"   → 補修意思決定には扱いづらいため、HDBSCANを代替手法として試行します。")
-                print(f"   → HDBSCAN目標クラスタ数: {config.HDBSCAN_TARGET_CLUSTERS}")
-                
-                try:
-                    hdbscan_labels = alt_methods.try_hdbscan(target_clusters=config.HDBSCAN_TARGET_CLUSTERS)
-                    if hdbscan_labels is not None and 'HDBSCAN' in alt_methods.results:
-                        self.clustering_results['HDBSCAN'] = alt_methods.results['HDBSCAN']
-                        
-                        # 評価（ノイズポイントを除外）
-                        mask_hdbscan = hdbscan_labels != -1
-                        if mask_hdbscan.sum() > 1:
-                            evaluator_hdbscan = ClusterEvaluator(self.X_scaled[mask_hdbscan], hdbscan_labels[mask_hdbscan])
-                            self.evaluation_results['HDBSCAN'] = evaluator_hdbscan.evaluate_all()
-                            print(f"   ✅ HDBSCANを代替手法候補に追加しました。")
-                except Exception as e:
-                    print(f"   ⚠️ HDBSCAN実行エラー: {e}")
+                print(f"   ✅ DBSCANを代替手法候補に追加しました。")
                     
         except Exception as e:
             print(f"   ⚠️ DBSCAN実行エラー: {e}")
+        
+        # 🆕 v0.7: HDBSCANとCLASSIXを常に試行（DBSCANの結果に関係なく）
+        print(f"\n🔄 密度ベース高度手法を試行します...")
+        print(f"   → HDBSCAN目標クラスタ数: {config.HDBSCAN_TARGET_CLUSTERS}")
+        print(f"   → CLASSIX目標クラスタ数: {config.HDBSCAN_TARGET_CLUSTERS}")
+        
+        # HDBSCAN
+        # v0.8改: ベイズ最適化を使用してパラメータ探索を効率化
+        try:
+            hdbscan_labels = alt_methods.try_hdbscan(
+                target_clusters=config.HDBSCAN_TARGET_CLUSTERS,
+                use_bayesian=True,
+                n_calls=100
+            )
+            if hdbscan_labels is not None and 'HDBSCAN' in alt_methods.results:
+                self.clustering_results['HDBSCAN'] = alt_methods.results['HDBSCAN']
+                
+                # 評価（ノイズポイントを除外）
+                mask_hdbscan = hdbscan_labels != -1
+                if mask_hdbscan.sum() > 1:
+                    evaluator_hdbscan = ClusterEvaluator(self.X_scaled[mask_hdbscan], hdbscan_labels[mask_hdbscan])
+                    self.evaluation_results['HDBSCAN'] = evaluator_hdbscan.evaluate_all()
+                    print(f"   ✅ HDBSCANを代替手法候補に追加しました。")
+        except Exception as e:
+            print(f"   ⚠️ HDBSCAN実行エラー: {e}")
+        
+        # CLASSIX（HDBSCANのノイズ問題を解決する代替手法）
+        # ✅ Windows Cython dtype問題を解決（merge_cm_win.pyxを修正してnp.int64に変更）
+        # v0.8改: ベイズ最適化を使用してパラメータ探索を効率化
+        try:
+            classix_labels = alt_methods.try_classix(
+                target_clusters=config.CLASSIX_TARGET_CLUSTERS,
+                use_bayesian=True,
+                n_calls=100
+            )
+            if classix_labels is not None and 'CLASSIX' in alt_methods.results:
+                self.clustering_results['CLASSIX'] = alt_methods.results['CLASSIX']
+                
+                # 評価（ノイズポイントを除外）
+                mask_classix = classix_labels != -1
+                if mask_classix.sum() > 1:
+                    evaluator_classix = ClusterEvaluator(self.X_scaled[mask_classix], classix_labels[mask_classix])
+                    self.evaluation_results['CLASSIX'] = evaluator_classix.evaluate_all()
+                    print(f"   ✅ CLASSIXを代替手法候補に追加しました。")
+        except Exception as e:
+            print(f"   ⚠️ CLASSIX実行エラー: {e}")
     
     def _select_best_clustering(self):
         """最適なクラスタリング手法を選択"""
-        # DBSCANのクラスタ数が50を超える場合は候補から除外
+        # 除外基準: 1) DBSCANのクラスタ数過多、2) HDBSCANのノイズ10%以上
         filtered_results = {}
         for method, result in self.evaluation_results.items():
             if method == 'DBSCAN':
                 n_clusters = self.clustering_results[method].get('n_clusters', 0)
                 if n_clusters > config.DBSCAN_CLUSTER_THRESHOLD:
                     print(f"\n⚠️  DBSCANのクラスタ数({n_clusters})が閾値({config.DBSCAN_CLUSTER_THRESHOLD})を超えているため、採用候補から除外します。")
+                    continue
+            elif method == 'HDBSCAN':
+                # v0.7改: ノイズ10%以上のHDBSCANを除外
+                labels = self.clustering_results[method]['labels']
+                n_noise = list(labels).count(-1)
+                noise_ratio = n_noise / len(labels)
+                if noise_ratio >= config.HDBSCAN_NOISE_THRESHOLD:
+                    print(f"\n⚠️  HDBSCANのノイズ比率({noise_ratio*100:.1f}%)が閾値({config.HDBSCAN_NOISE_THRESHOLD*100:.0f}%)以上のため、採用候補から除外します。")
                     continue
             filtered_results[method] = result
         

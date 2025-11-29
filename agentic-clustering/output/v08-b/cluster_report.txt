@@ -1,0 +1,213 @@
+======================================================================
+橋梁維持管理クラスタリング分析レポート
+======================================================================
+
+【クラスタ分布】
+  クラスタ 0: 4156件 (96.8%)
+  クラスタ 1: 4件 (0.1%)
+  クラスタ 2: 6件 (0.1%)
+  クラスタ 3: 54件 (1.3%)
+  クラスタ 4: 39件 (0.9%)
+  クラスタ 5: 6件 (0.1%)
+  クラスタ 6: 6件 (0.1%)
+  クラスタ 7: 3件 (0.1%)
+  クラスタ 8: 12件 (0.3%)
+  クラスタ 9: 6件 (0.1%)
+
+  合計: 4292件
+
+【クラスタごとの特徴量平均】
+         bridge_age  condition_score  maintenance_priority  future_burden_ratio  aging_rate  fiscal_index  structure_category  bridge_area  emergency_route  overpass  repair_year_normalized  under_river  distance_to_coast_km
+cluster                                                                                                                                                                                                                         
+0         50.061598         1.829885             94.193936            46.357540   35.899688      0.567233            1.526227   191.013667         0.466073  0.000000                0.131960     0.582291              9.378547
+1         77.500000         3.000000            232.500000           118.100000   29.702235      0.400000            1.000000    80.335000         0.500000  0.000000                0.719697     0.750000              2.347694
+2         66.833333         2.500000            164.000000            64.933333   32.268787      0.716667            1.333333   625.386333         0.500000  1.000000                0.000000     0.000000              4.839372
+3         44.296296         2.185185            101.129630            40.917129   34.523590      0.601705            2.166667   817.560000         0.666667  1.000000                0.346240     0.092593              3.308730
+4         42.435897         1.641026             71.512821           118.100000   29.702235      0.400000            1.435897   125.972821         0.897436  0.000000                0.021756     0.333333              1.033424
+5         45.666667         2.500000            114.333333             8.400000   44.447954      0.320000            2.166667   757.973333         0.166667  1.000000                0.964646     0.333333              3.401530
+6         38.500000         1.833333             77.833333            20.400000   44.409857      0.343333            2.333333   878.400000         0.666667  1.000000                0.000000     0.333333              7.620501
+7         49.333333         2.333333            114.333333            62.200000   30.058113      0.630000            2.666667   170.070000         1.000000  1.000000                0.000000     0.000000             21.873432
+8         30.250000         2.000000             62.083333            46.986110   33.876020      0.618595            2.166667  3673.184583         1.000000  1.000000                0.000000     0.166667              5.259434
+9         27.166667         2.166667             62.500000            47.093055   32.386623      0.605964            2.166667  9846.333333         0.500000  0.166667                0.166667     0.000000              0.830296
+
+【クラスタ解釈】
+
+■ クラスタ 0
+  - bridge_age: 50.06
+  - condition_score: 1.83
+  - maintenance_priority: 94.19
+  - future_burden_ratio: 46.36
+  - aging_rate: 35.90
+  - fiscal_index: 0.57
+  - structure_category: 1.53
+  - bridge_area: 191.01
+  - emergency_route: 0.47
+  - overpass: 0.00
+  - repair_year_normalized: 0.13
+  - under_river: 0.58
+  - distance_to_coast_km: 9.38
+
+  【評価】🟡 中リスク
+  【要因】高橋齢, 高齢化
+
+■ クラスタ 1
+  - bridge_age: 77.50
+  - condition_score: 3.00
+  - maintenance_priority: 232.50
+  - future_burden_ratio: 118.10
+  - aging_rate: 29.70
+  - fiscal_index: 0.40
+  - structure_category: 1.00
+  - bridge_area: 80.33
+  - emergency_route: 0.50
+  - overpass: 0.00
+  - repair_year_normalized: 0.72
+  - under_river: 0.75
+  - distance_to_coast_km: 2.35
+
+  【評価】🔴 高リスク
+  【要因】高橋齢, 健全度低下, 高補修優先度, 財政力弱
+
+■ クラスタ 2
+  - bridge_age: 66.83
+  - condition_score: 2.50
+  - maintenance_priority: 164.00
+  - future_burden_ratio: 64.93
+  - aging_rate: 32.27
+  - fiscal_index: 0.72
+  - structure_category: 1.33
+  - bridge_area: 625.39
+  - emergency_route: 0.50
+  - overpass: 1.00
+  - repair_year_normalized: 0.00
+  - under_river: 0.00
+  - distance_to_coast_km: 4.84
+
+  【評価】🟡 中リスク
+  【要因】高橋齢, 高補修優先度
+
+■ クラスタ 3
+  - bridge_age: 44.30
+  - condition_score: 2.19
+  - maintenance_priority: 101.13
+  - future_burden_ratio: 40.92
+  - aging_rate: 34.52
+  - fiscal_index: 0.60
+  - structure_category: 2.17
+  - bridge_area: 817.56
+  - emergency_route: 0.67
+  - overpass: 1.00
+  - repair_year_normalized: 0.35
+  - under_river: 0.09
+  - distance_to_coast_km: 3.31
+
+  【評価】🟢 低リスク
+  【要因】高補修優先度
+
+■ クラスタ 4
+  - bridge_age: 42.44
+  - condition_score: 1.64
+  - maintenance_priority: 71.51
+  - future_burden_ratio: 118.10
+  - aging_rate: 29.70
+  - fiscal_index: 0.40
+  - structure_category: 1.44
+  - bridge_area: 125.97
+  - emergency_route: 0.90
+  - overpass: 0.00
+  - repair_year_normalized: 0.02
+  - under_river: 0.33
+  - distance_to_coast_km: 1.03
+
+  【評価】🟢 低リスク
+  【要因】財政力弱
+
+■ クラスタ 5
+  - bridge_age: 45.67
+  - condition_score: 2.50
+  - maintenance_priority: 114.33
+  - future_burden_ratio: 8.40
+  - aging_rate: 44.45
+  - fiscal_index: 0.32
+  - structure_category: 2.17
+  - bridge_area: 757.97
+  - emergency_route: 0.17
+  - overpass: 1.00
+  - repair_year_normalized: 0.96
+  - under_river: 0.33
+  - distance_to_coast_km: 3.40
+
+  【評価】🔴 高リスク
+  【要因】高補修優先度, 高齢化, 財政力弱
+
+■ クラスタ 6
+  - bridge_age: 38.50
+  - condition_score: 1.83
+  - maintenance_priority: 77.83
+  - future_burden_ratio: 20.40
+  - aging_rate: 44.41
+  - fiscal_index: 0.34
+  - structure_category: 2.33
+  - bridge_area: 878.40
+  - emergency_route: 0.67
+  - overpass: 1.00
+  - repair_year_normalized: 0.00
+  - under_river: 0.33
+  - distance_to_coast_km: 7.62
+
+  【評価】🟡 中リスク
+  【要因】高齢化, 財政力弱
+
+■ クラスタ 7
+  - bridge_age: 49.33
+  - condition_score: 2.33
+  - maintenance_priority: 114.33
+  - future_burden_ratio: 62.20
+  - aging_rate: 30.06
+  - fiscal_index: 0.63
+  - structure_category: 2.67
+  - bridge_area: 170.07
+  - emergency_route: 1.00
+  - overpass: 1.00
+  - repair_year_normalized: 0.00
+  - under_river: 0.00
+  - distance_to_coast_km: 21.87
+
+  【評価】🟢 低リスク
+  【要因】高補修優先度
+
+■ クラスタ 8
+  - bridge_age: 30.25
+  - condition_score: 2.00
+  - maintenance_priority: 62.08
+  - future_burden_ratio: 46.99
+  - aging_rate: 33.88
+  - fiscal_index: 0.62
+  - structure_category: 2.17
+  - bridge_area: 3673.18
+  - emergency_route: 1.00
+  - overpass: 1.00
+  - repair_year_normalized: 0.00
+  - under_river: 0.17
+  - distance_to_coast_km: 5.26
+
+  【評価】🟢 低リスク
+
+■ クラスタ 9
+  - bridge_age: 27.17
+  - condition_score: 2.17
+  - maintenance_priority: 62.50
+  - future_burden_ratio: 47.09
+  - aging_rate: 32.39
+  - fiscal_index: 0.61
+  - structure_category: 2.17
+  - bridge_area: 9846.33
+  - emergency_route: 0.50
+  - overpass: 0.17
+  - repair_year_normalized: 0.17
+  - under_river: 0.00
+  - distance_to_coast_km: 0.83
+
+  【評価】🟢 低リスク
+
+======================================================================
